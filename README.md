@@ -21,20 +21,20 @@ Este projeto apresenta um comparativo entre um método clássico para TSP, basea
 O repositório implementa uma pipeline experimental dividida em quatro scripts principais:
 
 - `gerar_instancias.py`: gera instâncias euclidianas do TSP em arquivos CSV.
-- `gerar_imagens_pontos-4.py`: lê as instâncias e gera imagens dos pontos.
-- `tsp_pipeline_runner-3.py`: executa os algoritmos, mede distância e tempo e salva os resultados brutos.
-- `tsp_analyze_results-2.py`: consolida os resultados, calcula estatísticas e gera tabelas e gráficos.
+- `gerar_imagens_pontos.py`: lê as instâncias e gera imagens dos pontos.
+- `tsp_pipeline_runner.py`: executa os algoritmos, mede distância e tempo e salva os resultados brutos.
+- `tsp_analyze_results.py`: consolida os resultados, calcula estatísticas e gera tabelas e gráficos.
 
 ## Estrutura da pipeline
 
 ```mermaid
 flowchart TD
     A[gerar_instancias.py] --> B[Arquivos CSV com instâncias TSP]
-    B --> C[gerar_imagens_pontos-4.py]
-    B --> D[tsp_pipeline_runner-3.py]
+    B --> C[gerar_imagens_pontos.py]
+    B --> D[tsp_pipeline_runner.py]
     C --> E[Imagens dos pontos em PNG]
     D --> F[Resultados brutos: raw_runs.csv]
-    F --> G[tsp_analyze_results-2.py]
+    F --> G[tsp_analyze_results.py]
     G --> H[Tabela simplificada]
     G --> I[Gráficos de distância, tempo e gap]
     G --> J[Testes estatísticos e tabelas auxiliares]
@@ -202,9 +202,9 @@ flowchart TD
 │   ├── grafico_mediana_tempo.png
 │   └── ...
 ├── gerar_instancias.py
-├── gerar_imagens_pontos-4.py
-├── tsp_pipeline_runner-3.py
-└── tsp_analyze_results-2.py
+├── gerar_imagens_pontos.py
+├── tsp_pipeline_runner.py
+└── tsp_analyze_results.py
 ```
 
 ## Requisitos
@@ -256,19 +256,19 @@ python gerar_instancias.py
 ### 2. Gerar imagens dos pontos
 
 ```bash
-python gerar_imagens_pontos-4.py
+python gerar_imagens_pontos.py
 ```
 
 ### 3. Executar os algoritmos
 
 ```bash
-python tsp_pipeline_runner-3.py
+python tsp_pipeline_runner.py
 ```
 
 ### 4. Analisar resultados
 
 ```bash
-python tsp_analyze_results-2.py
+python tsp_analyze_results.py
 ```
 
 ## Métricas avaliadas
@@ -291,6 +291,40 @@ Ao final da execução, o projeto produz:
 - tabelas resumo por algoritmo;
 - gráficos de mediana de distância, tempo e gap;
 - boxplots para análise de distribuição.
+
+## Resultados visuais
+
+Os principais gráficos gerados pelo pipeline estão disponíveis na pasta [`resultados`](https://github.com/maya-gc/Traveling-Salesman-Problem/tree/main/resultados) e resumem o comportamento dos algoritmos em termos de qualidade da rota, tempo de execução, gap para o melhor resultado e distribuição dos valores nas maiores instâncias.
+
+### Mediana da distância por algoritmo
+
+Este gráfico mostra como a distância mediana cresce conforme aumenta o número de pontos, permitindo comparar a qualidade das rotas entre `classic_cpu`, `classic_gpu`, `ml_cpu` e `ml_gpu`.
+
+![Mediana da distância por algoritmo](resultados/grafico_mediana_distancia.png)
+
+### Mediana do tempo por algoritmo
+
+Este gráfico apresenta o custo computacional mediano de cada abordagem, evidenciando a diferença entre os métodos clássicos e os métodos baseados em aprendizado por reforço.
+
+![Mediana do tempo por algoritmo](resultados/grafico_mediana_tempo.png)
+
+### Gap mediano para o melhor resultado
+
+O gráfico de gap mostra o afastamento percentual de cada algoritmo em relação ao melhor resultado obtido em cada tamanho de instância, facilitando a análise comparativa de desempenho relativo.
+
+![Gap mediano para o melhor resultado](resultados/grafico_gap_mediano.png)
+
+### Boxplot da distância final em n=500
+
+Este boxplot mostra a distribuição da distância final para instâncias com 500 pontos, destacando dispersão, mediana e estabilidade de cada algoritmo.
+
+![Boxplot da distância final em n=500](resultados/boxplot_distance_n500.png)
+
+### Boxplot do tempo total em n=500
+
+Este boxplot apresenta a distribuição do tempo total de execução em instâncias com 500 pontos, permitindo observar a variação entre CPU, GPU e métodos com ML.
+
+![Boxplot do tempo total em n=500](resultados/boxplot_runtime_n500.png)
 
 ## Observações
 
